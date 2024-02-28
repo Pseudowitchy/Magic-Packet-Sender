@@ -15,15 +15,15 @@ class Program
             if (args[0].ToLower() == "send" || args[0].ToLower() == "wake"
                 || args[0].ToLower() == "s" || args[0].ToLower() == "w")
             {
-                Console.WriteLine("send recieved");
                 if (args.Length > 1)
                 {
+                    foreach (Alias alias in aliases) { if (args[1].ToLower() == alias.Name.ToLower()) { args[1] = alias.Mac.ToString(); } }
                     if (PhysicalAddress.TryParse(args[1], out PhysicalAddress? mac))
                     {
                         SendPacket(mac);
                         Console.WriteLine("Packet Sent!");
                     }
-                    else { Console.WriteLine("Invalid Mac Address."); }
+                    else { Console.WriteLine("Invalid Mac Address or Alias."); }
                 }
                 else { Console.WriteLine("No MAC address provided, please try again"); }
             }
